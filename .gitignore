@@ -1,0 +1,14 @@
+MetaXcan/
+results/
+data/
+.vscode/
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+.DS_Store
+*.log
+*.tar
+*.tar.gz
+*.gz
+aim3_scoring.py
