@@ -46,58 +46,9 @@ Only source files are tracked. Data, results, logs, and model files are excluded
 
 ## How to Run
 
-This pipeline runs in three stages. Stages 1 and 3 run locally; Stage 2 runs on BU SCC.
+See `TWAS_pipeline.sh` for the full pipeline with all commands in order, including data download, environment setup, and all three aims.
 
-See `TWAS_pipeline.sh` for the full pipeline in order.
-
-### Stage 1 — Local: GWAS QC
-
-```bash
-# Run QC pipeline (produces allEC_aim1.gz and allEC_ldsc.gz)
-/opt/anaconda3/envs/imlabtools/bin/python aim1_gwas_qc.py
-
-# Copy outputs to SCC
-scp data/gwas/allEC_ldsc.gz nobma@scc1.bu.edu:/projectnb/bs859/students/nobma/final_proj/
-scp run_ldsc.sh nobma@scc1.bu.edu:/projectnb/bs859/students/nobma/final_proj/
-scp ld_clumping.sh nobma@scc1.bu.edu:/projectnb/bs859/students/nobma/final_proj/
-```
-
-### Stage 2 — BU SCC: LD Clumping and Heritability
-
-```bash
-module load plink2/2.00a2.3
-module load plink/1.90b6.21
-module load python2/2.7.16
-module load ldsc/2020-05-05_github3d0c446
-
-bash ld_clumping.sh
-bash run_ldsc.sh
-
-# Copy results back to local
-scp "nobma@scc1.bu.edu:/projectnb/bs859/students/nobma/final_proj/results/aim1/*" results/aim1/
-```
-
-### Stage 3 — Local: TWAS and Model Comparison
-
-```bash
-# Aim 2: S-PrediXcan and S-MultiXcan (elastic net)
-bash run_spredixcan_en.sh
-bash run_smultixcan_en.sh
-
-# View Aim 2 results
-/opt/anaconda3/envs/imlabtools/bin/python view_spredixcan_en.py
-/opt/anaconda3/envs/imlabtools/bin/python view_smultixcan_en.py
-
-# Aim 3: S-PrediXcan and S-MultiXcan (mashr)
-bash run_spredixcan_mashr.sh
-bash run_smultixcan_mashr.sh
-
-# View Aim 3 results and compare
-/opt/anaconda3/envs/imlabtools/bin/python view_spredixcan_mashr.py
-/opt/anaconda3/envs/imlabtools/bin/python view_smultixcan_mashr.py
-/opt/anaconda3/envs/imlabtools/bin/python compare_results.py
-```
-
+> **Note:**  Stage 2 (LD clumping and LDSC heritability) requires BU SCC access. All other steps run locally on macOS.
 ---
 
 ## Key Results
