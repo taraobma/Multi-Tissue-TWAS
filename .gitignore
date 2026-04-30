@@ -12,3 +12,8 @@ __pycache__/
 *.tar.gz
 *.gz
 aim3_scoring.py
+*.aux
+*.tex
+*.out
+*.pdf
+final_report.html
